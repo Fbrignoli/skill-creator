@@ -1,29 +1,18 @@
 # skill-creator
 
-Un skill qui t'aide à construire tes skills. Pas en générant un fichier de 300 lignes en trente secondes, mais en te faisant avancer une étape à la fois, comme on apprend une tâche à quelqu'un.
+Le skill que j'utilise pour construire mes skills. Il t'empêche de générer un `SKILL.md` complet d'un coup et te fait avancer une étape à la fois, sur un vrai cas, en versant tes corrections dans le fichier au fur et à mesure.
 
-Il marche avec **Claude Code, Codex, Gemini CLI et Google Antigravity** : le même fichier `SKILL.md`, sans modification. La procédure d'installation par outil est dans [INSTALL.md](INSTALL.md).
+Il marche avec **Claude Code, Codex, Gemini CLI et Google Antigravity** : ils lisent tous le même format `SKILL.md`, sans modification. L'installation par outil est dans [INSTALL.md](INSTALL.md).
 
 ## Le problème qu'il règle
 
-Quand tu génères un skill à partir d'une phrase vague, ton IA prend à ta place toutes les décisions que tu n'as pas prises : le format de sortie, les cas limites, les garde-fous. Tu récupères un fichier propre à l'œil, mais bourré de choix par défaut invisibles. Et ça ne se voit pas au premier coup d'œil. Ça te saute au visage le jour où tu l'utilises sur un vrai projet, et personne ne relit 300 lignes à froid pour comprendre pourquoi le résultat déraille.
+Un skill fiable demande beaucoup plus de contexte et de décisions qu'un prompt normal : un format de sortie, des cas limites, des garde-fous. Quand tu le génères à partir d'une phrase vague, ton IA prend toutes ces décisions à ta place et te rend un fichier propre à l'œil, bourré de choix par défaut invisibles. Ça ne se voit pas tout de suite. Ça te saute au visage le jour où tu l'utilises sur un vrai projet, et personne ne relit 300 lignes à froid pour comprendre pourquoi ça déraille.
 
-Un skill fiable demande beaucoup plus de contexte et de décisions qu'un prompt normal. C'est un vrai système, avec ses règles et son format. La manière dont tu le construis compte plus que le fichier lui-même.
+## Comment il fonctionne
 
-## La méthode
+Au lieu d'écrire le skill d'un bloc, il le construit sur un vrai cas pilote, une étape à la fois. Pour chaque étape : il propose l'action, l'exécute pour de vrai sur ton cas, te montre le résultat concret, prend ta correction, et met à jour le fichier avant de passer à la suite. Chaque correction finit quelque part dans le skill : une info manquante devient un input requis, une erreur récurrente devient un garde-fou, un bout de code réécrit à chaque fois devient un script. À la fin, il relance toute la procédure depuis zéro pour valider, puis installe le skill.
 
-On construit un skill comme on apprend à faire un gâteau à un enfant : tu montres une étape, il la fait, tu regardes ce qui se passe, tu corriges maintenant. Tu n'attends pas que le gâteau sorte du four pour voir le problème.
-
-Concrètement, six étapes :
-
-1. **Décrire le besoin en une phrase.** Une direction suffit, pas un prompt parfait.
-2. **Laisser le skill poser les questions.** Input, résultat attendu, cas d'usage, limites.
-3. **Choisir un vrai cas pilote.** Une vraie demande, de vraies données. C'est l'étape que tout le monde saute, et celle qui change tout.
-4. **Définir la procédure.** Des étapes observables, pas trente.
-5. **Exécuter et corriger une étape à la fois.** Chaque correction est versée dans le fichier avant de passer à la suite.
-6. **Faire le dry run complet.** On relance tout depuis zéro sur un second cas. Si ça passe, c'est prêt.
-
-Le détail complet est dans le skill lui-même : [`skill-creator/SKILL.md`](skill-creator/SKILL.md).
+Le détail complet est dans le skill : [`skill-creator/SKILL.md`](skill-creator/SKILL.md).
 
 ## Utilisation
 
@@ -33,7 +22,7 @@ Une fois installé (voir [INSTALL.md](INSTALL.md)), appelle-le quand tu veux cr�
 Crée un skill pour consolider mon rapport hebdo à partir de Stripe, Analytics et MailerLite.
 ```
 
-L'outil t'accompagne étape par étape. Tu n'as pas besoin de maîtriser la structure d'un `SKILL.md` avant de commencer. Tu dois juste pouvoir regarder son travail et lui dire : ça c'est bon ; ça ça ne correspond pas à ma manière de bosser.
+Il t'accompagne étape par étape. Tu n'as pas besoin de maîtriser la structure d'un `SKILL.md` avant de commencer. Tu dois juste pouvoir regarder son travail et lui dire : ça c'est bon ; ça ne correspond pas à ma manière de bosser.
 
 ## Structure du dépôt
 
@@ -41,15 +30,19 @@ L'outil t'accompagne étape par étape. Tu n'as pas besoin de maîtriser la stru
 skill-creator/
 ├── README.md            ce fichier
 ├── INSTALL.md           installation par outil (Claude, Codex, Gemini, Antigravity)
-├── LICENSE
+├── LICENSE              Apache 2.0
 └── skill-creator/       le skill portable
-    └── SKILL.md
+    ├── SKILL.md         le workflow complet
+    ├── scripts/         init_skill.py, quick_validate.py, generate_openai_yaml.py
+    ├── references/      openai_yaml.md
+    ├── agents/          openai.yaml (métadonnées UI, spécifiques Codex, optionnel)
+    └── assets/          icônes
 ```
 
-## Licence
+## Licence et origine
 
-MIT. Prends-le, modifie-le, adapte-le à ta manière de bosser. Voir [LICENSE](LICENSE).
+Ce skill est bâti sur le `skill-creator` open-source, sous licence Apache 2.0. Il est distribué sous la même licence, voir [LICENSE](LICENSE). Prends-le, modifie-le, adapte-le à ta manière de bosser.
 
 ---
 
-Construit par [Florian Brignoli](https://florianbrignoli.fr). Retours d'expérience sur les skills et les agents IA, une vidéo par semaine.
+Partagé par [Florian Brignoli](https://florianbrignoli.fr). Retours d'expérience sur les skills et les agents IA, une vidéo par semaine.
