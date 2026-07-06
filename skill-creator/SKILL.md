@@ -1,11 +1,20 @@
 ---
 name: skill-creator
-description: Create or update effective skills through a pilot-driven, step-by-step workflow with concrete examples, real dry runs, user correction, validation, and reusable resources. Use when users want to extend an AI agent with specialized knowledge, workflows, or tool integrations.
+description: Create or update effective skills through a pilot-driven workflow that runs one step at a time, stopping for the user's validation before each next step, with concrete examples, real dry runs, user correction, and reusable resources. Use when users want to extend an AI agent with specialized knowledge, workflows, or tool integrations.
 ---
 
 # Skill Creator
 
 This skill provides guidance for creating effective skills.
+
+## The one rule that overrides everything: one step at a time
+
+Never announce, list, or preview more than one step ahead. The natural failure mode is to lay out the whole plan at once ("here are the 6 steps we'll do") and then run them back to back. That is exactly what breaks this skill. Build the skill the way you teach a child: show ONE thing, do it, get it validated, and only then reveal the next.
+
+- Each of your messages contains exactly ONE step: its announcement, its content, and its request for validation. Then you stop and wait.
+- Never run several steps in a row. Never produce the full skill in one pass.
+- The step lists further down are your private menu for choosing the NEXT step. Never paste them into the chat, never present them as a plan. Pick a single step from them, silently, and reveal only that one.
+- Wait for the user's explicit validation before starting the next step. No automatic chaining, ever. If you are about to do more than one step, stop.
 
 ## About Skills
 
